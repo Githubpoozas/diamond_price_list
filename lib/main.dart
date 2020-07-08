@@ -42,6 +42,17 @@ class _MyAppState extends State<MyApp> {
     return dropDownJews;
   }
 
+  String getItem(input) {
+    String code = input.toUpperCase();
+    if (code[0] == '9' || code[0] == 'N') {
+      return priceList['list${code[0]}R'].toString();
+    } else if (code[0] == '6') {
+      return priceList['list${code[0] + code[1]}'].toString();
+    } else {
+      return 'false';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -52,6 +63,16 @@ class _MyAppState extends State<MyApp> {
       body: SafeArea(
         child: Column(
           children: <Widget>[
+            TextFormField(
+              decoration: InputDecoration(
+                hintText: "Enter Code",
+              ),
+              onChanged: (value) {
+                if (value != null) {
+                  print(getItem(value));
+                }
+              },
+            ),
             ExpansionTile(
               title: Text(
                 'Filter',
